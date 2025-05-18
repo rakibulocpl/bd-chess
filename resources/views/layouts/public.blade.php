@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <title>{{ config('app.name') }}</title>
     @include('partials.public-head')
 </head>
-<body class="min-h-screen flex flex-col bg-white antialiased dark:bg-gradient-to-b dark:from-neutral-950 dark:to-neutral-900">
+<body class="min-h-screen flex flex-col bg-white antialiased dark:bg-gradient-to-b dark:from-neutral-950 dark:to-neutral-900 ">
 
 <!-- ✅ Header / Navbar -->
-<header class="bg-white dark:bg-neutral-900 shadow-md">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <!-- Logo -->
-        <a href="{{ route('home') }}" class="flex items-center space-x-2">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none';">
-            <span class="text-xl font-bold text-gray-800 dark:text-white">
-                {{ config('app.name', 'Chess Federation') }}
-            </span>
-        </a>
+<header class="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-md">
+
+    <div class="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-24 py-2 flex justify-between items-center">
+            <!-- Logo -->
+        
+            <a href="{{ route('home') }}" class="flex items-center space-x-2">
+                <img src="{{ asset('assets/images/chess_logo.svg') }}" alt="Logo" class="h-14 w-auto" onerror="this.style.display='none';">
+            </a>
+
 
         <!-- Nav Links -->
         <nav class="space-x-4 hidden md:flex">
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <div class="md:hidden px-4 pb-4 hidden" id="mobileMenu">
+    <div class="md:hidden px-6 md:px-12 lg:px-24 pb-4 hidden" id="mobileMenu">
         <a href="{{ route('home') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Team Registration</a>
         <a href="{{ route('application.applicantRegister') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Individual Registration</a>
         <a href="{{ route('notice') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Notice</a>
@@ -52,13 +52,16 @@
 </header>
 
 <!-- ✅ Page Content -->
-<main class="flex-grow flex flex-col items-center justify-center gap-6 p-6 md:p-10 bg-white dark:bg-transparent">
-    <div class="flex w-full max-w-sm md:max-w-3xl flex-col gap-2">
-        <h1 class="text-center font-bold text-2xl md:text-3xl mb-5">
-            National High School Team Championship 2025
-        </h1>
-        <div class="flex flex-col gap-6">
-            @yield('content')
+<main class="pt-16 md:pt-20 flex-grow bg-white dark:bg-transparent">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-24 py-10 flex flex-col gap-6">
+        <div class="w-full flex flex-col gap-2">
+
+            <h1 class="text-center font-bold text-2xl md:text-3xl mb-5">
+                National High School Team Championship 2025
+            </h1>
+            <div class="flex flex-col gap-6">
+                @yield('content')
+            </div>
         </div>
     </div>
 </main>\
