@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', [TeamController::class, 'showForm'])->name('home');
+Route::get('/team-list', [TeamController::class, 'teamList'])->name('teamList');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

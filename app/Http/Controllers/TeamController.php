@@ -10,6 +10,7 @@ use App\Models\Thana;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Yajra\DataTables\Facades\DataTables;
 
 class TeamController extends Controller
 {
@@ -117,6 +118,30 @@ class TeamController extends Controller
 
         return redirect()->route('home');
 
+    }
+
+    public function teamList(Request $request)
+    {
+        if ($request->ajax()) {
+            $teams = Team::with(['school', 'district', 'thana'])->get();
+
+            foreach ($teams as $team) {
+                $playerIds = json_decode($team->players, true);
+                $team->player_names = Applicant::whereIn('id', $playerIds)->pluck('name')->toArray();
+            }
+
+            return DataTables::of($teams)
+                ->addColumn('school_info', function ($team) {
+                    return ($team->school->name ?? '-') . ' (' . ($team->thana->name ?? '-') . ', ' . ($team->district->name ?? '-'). ')';
+                })
+                ->addColumn('players', function ($team) {
+                    return !empty($team->player_names) ? implode(', ', $team->player_names) : '-';
+                })
+                ->rawColumns(['school_info', 'players'])
+                ->make(true);
+        }
+
+        return view('team-list');
     }
 
 
