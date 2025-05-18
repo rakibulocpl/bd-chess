@@ -22,9 +22,9 @@
                     <tr>
                         <th class="py-3 text-left font-semibold text-white uppercase tracking-wider whitespace-nowrap">{{ __('School Name (Thana, District)') }}</th>
                         <th class="py-3 text-left font-semibold text-white uppercase tracking-wider whitespace-nowrap">{{ __("Team Number") }}</th>
+                        <th class="py-3 text-left font-semibold text-white uppercase tracking-wider whitespace-nowrap">{{ __("Players' Name") }}</th>
                         <th class="py-3 text-left font-semibold text-white uppercase tracking-wider whitespace-nowrap">{{ __("Captain's Name") }}</th>
                         <th class="py-3 text-left font-semibold text-white uppercase tracking-wider whitespace-nowrap">{{ __("Mentor's Name") }}</th>
-                        <th class="py-3 text-left font-semibold text-white uppercase tracking-wider whitespace-nowrap">{{ __("Players' Name") }}</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100"></tbody>
@@ -82,11 +82,11 @@
             white-space: normal !important;
             line-height: 1.5;
         }
-        
+
         table, td, tr {
             border: 1px solid #e5e7eb;
         }
-        
+
         div.dtr-modal-content table {
             width: 100%;
             border-collapse: separate;
@@ -181,9 +181,10 @@
                 columns: [
                     { data: 'school_info', name: 'school_info', responsivePriority: 1 },
                     { data: 'team_number', name: 'team_number', responsivePriority: 2 },
+                    { data: 'players', name: 'players', responsivePriority: 3 },
                     { data: 'captain_name', name: 'captain_name', responsivePriority: 4 },
-                    { data: 'mentor_name', name: 'mentor_name', responsivePriority: 5 },
-                    { data: 'players', name: 'players', responsivePriority: 3 }
+                    { data: 'mentor_name', name: 'mentor_name', responsivePriority: 5 }
+
                 ],
                 columnDefs: [
                     { targets: '_all',}
