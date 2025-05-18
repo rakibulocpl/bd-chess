@@ -1,9 +1,26 @@
 @extends('layouts.public')
 @section('content')
+<style>
+
+    .select2-container .select2-selection--single {
+    height: 34px !important;
+    display: flex;
+    align-items: center;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 42px !important;
+    }
+    /* Force select2 container to inherit 100% width */
+    .select2-container {
+        width: 100% !important;
+    }
+
+
+</style>
 <div class="flex flex-col gap-6 bg-white">
     <x-public-header :title="__('Create a Team')" :description="__('Enter your team details below to create your team')" />
 
-    <p class="text-center text-indigo-400">*** Multiple teams from the same school can register. ***</p>
+    <p class="text-center text-blue-500">*** Multiple teams from the same school can register. ***</p>
 
     @session('success')
     <div class="flex items-center p-2 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-green-900 dark:text-green-300 dark:border-green-800" role="alert">
@@ -14,19 +31,19 @@
     </div>
     @endsession
     <form method="POST" action="{{ route('teams.store') }}" id="teamForm">
-        <p class="text-red-500"> All red star-marked fields must be filled.</p>
+        <p class="text-red-400"> All red star-marked fields must be filled.</p>
         @csrf
 
-        {{-- District --}}
-        <div class="w-full p-1 space-y-2 space-x-2">
+        
+        <div class="w-full p-1 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-4">
 
             <!-- District -->
             <div class="w-full">
-                <label for="district" class="block text-sm font-semibold text-black mb-1">
+                <label for="district" class="block text-md font-semibold text-black mb-1">
                     District <span class="text-red-600">*</span>
                 </label>
                 <select name="district" id="district"
-                        class="w-full select2 rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 required">
+                        class="w-full select2 rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm required">
                     <option value="">Select District</option>
                     @foreach ($districtsList as $item)
 
@@ -40,11 +57,11 @@
 
             <!-- Thana -->
             <div class="w-full">
-                <label for="thana" class="block text-sm font-semibold text-black mb-1">
+                <label for="thana" class="block text-md font-semibold text-black mb-1">
                     Thana/Upazila' <span class="text-red-600">*</span>
                 </label>
                 <select name="thana" id="thana"
-                        class="required w-full rounded-md select2 border border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        class="required w-full rounded-md select2 border border-gray-300 bg-white text-black py-2 px-3 shadow-sm">
                     <option value="">Select Thana/Upazila'</option>
                 </select>
                 @error('thana')
@@ -54,11 +71,11 @@
 
             <!-- School -->
             <div class="w-full">
-                <label for="school" class="block text-sm font-semibold text-black mb-1">
+                <label for="school" class="block text-md font-semibold text-black mb-1">
                     School <span class="text-red-600">*</span>
                 </label>
                 <select name="school_id" id="school"
-                        class="w-full required rounded-md border select2 border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        class="w-full required rounded-md border select2 border-gray-300 bg-white text-black py-2 px-3 shadow-sm">
                     <option value="">Select School</option>
                 </select>
                 @error('school_id')
@@ -68,11 +85,11 @@
 
             <!-- Captain Name -->
             <div class="w-full">
-                <label for="captain_name" class="block text-sm font-semibold text-black mb-1">
+                <label for="captain_name" class="block text-md font-semibold text-black mb-1">
                     Captain's Name
                 </label>
                 <input type="text" name="captain_name" id="captain_name" placeholder="Enter Captain's Name"
-                       class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                       class="w-full rounded-md border border-gray-300 bg-white text-black py-1 px-3 shadow-sm placeholder-gray-500" />
                 @error('captain_name')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -80,11 +97,11 @@
 
             <!-- Mentor Name -->
             <div class="w-full">
-                <label for="mentor_name" class="block text-sm font-semibold text-black mb-1">
+                <label for="mentor_name" class="block text-md font-semibold text-black mb-1">
                     Mentor's Name
                 </label>
                 <input type="text" name="mentor_name" id="mentor_name" placeholder="Enter Mentor's Name"
-                       class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                       class="w-full rounded-md border border-gray-300 bg-white text-black py-1 px-3 shadow-sm placeholder-gray-500" />
                 @error('mentor_name')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -92,10 +109,10 @@
 
             <!-- Players -->
             <div class="w-full mt-4">
-                <label class="block text-sm font-semibold text-black mb-2">
+                <label class="block text-md font-semibold text-black ">
                     Players <span class="text-red-600">*</span>
                 </label>
-                <p class="text-sm text-red-400 font-semibold mb-2 italic">
+                <p class="text-sm text-blue-700 font-semibold mb-2 italic">
                     Each team must have 4 players of which one player must be below 12 years of age on 1st January 2025. You may also add 1 extra (substitute) player.
                 </p>
                 <div id="playerList" class="space-y-2">
@@ -111,10 +128,12 @@
         </div>
 
 
-        <button type="submit"
+       <div class="flex items-center justify-center">
+         <button type="submit"
                 class="w-32 mt-5 bg-black hover:bg-black text-white  py-2 px-4 rounded-lg shadow-md transition duration-300">
             Submit
         </button>
+       </div>
 
     </form>
 
@@ -214,7 +233,7 @@
 
     <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
         {{ __('You need to register as an individual before creating a team.') }}
-        <a href="{{ route('application.applicantRegister') }}" class="text-indigo-600 hover:underline">
+        <a href="{{ route('application.applicantRegister') }}" class="text-blue-600 hover:underline">
             {{ __('Register here.') }}
         </a>
     </div>
