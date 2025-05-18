@@ -9,6 +9,7 @@ use App\Models\Team;
 use App\Models\Thana;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -36,14 +37,16 @@ class TeamController extends Controller
     public function getPlayers($schoolId)
     {
         // Get all player IDs already assigned to a team in the same school
-        $assignedPlayerIds = Team::where('school_id', $schoolId)
-            ->pluck('players')
-            ->filter() // remove null values
-            ->flatMap(function ($playersJson) {
-                return json_decode($playersJson, true); // parse JSON array
+        $assignedPlayerIds = DB::table('team_player')
+            ->whereIn('team_id', function ($query) use ($schoolId) {
+                $query->select('id')
+                    ->from('teams')
+                    ->where('school_id', $schoolId);
             })
+            ->pluck('applicant_id')
             ->unique()
             ->toArray();
+
 
         // Return applicants who are not already assigned
         $players = Applicant::where('school_id', $schoolId)
@@ -90,6 +93,17 @@ class TeamController extends Controller
             ]);
         }
 
+
+
+        if ($request->captain_id) {
+            $players = $request->players;
+            if (!in_array($request->captain_id, $players)) {
+                throw ValidationException::withMessages([
+                    'players' => 'The captain must be selected from the list of players.',
+                ]);
+            }
+        }
+
         $playersData = Applicant::whereIn('id', $request->players)->get();
 
 
@@ -104,19 +118,45 @@ class TeamController extends Controller
                 'players' => "At least one player must be below  12 years old.",
             ]);
         }
+// Count existing teams in the same school
+        $existingTeamsCount = Team::where('school_id', $request->school_id)->count();
 
-        Team::create([
-            'district_id' => $request->district,
-            'thana_id' => $request->thana,
-            'school_id' => $request->school_id,
-            'captain_name' => $request->captain_name,
-            'mentor_name' => $request->mentor_name,
-            'players' => json_encode($request->players), // if stored as JSON
-        ]);
+        $teamNumber = $request->district . $request->thana . $request->school_id . ($existingTeamsCount + 1);
 
-        session()->flash('success', 'Team registered successfully!');
+        try {
 
-        return redirect()->route('home');
+            DB::beginTransaction();
+
+
+            $team = Team::create([
+                'district_id' => $request->district,
+                'thana_id' => $request->thana,
+                'school_id' => $request->school_id,
+                'captain_id' => $request->captain_id,
+                'mentor_name' => $request->mentor_name,
+                'team_number'=>$teamNumber,
+            ]);
+
+            foreach ($request->players as $index => $playerId) {
+                DB::table('team_player')->insert([
+                    'team_id' => $team->id,
+                    'applicant_id' => $playerId,
+                    'player_order' => $index + 1,
+                    'created_at' => now(),
+                ]);
+            }
+            DB::commit();
+
+            session()->flash('success', 'Team registered successfully!');
+            return redirect()->route('home');
+
+        }catch (\Exception $e){
+            DB::rollBack();
+            session()->flash('error', 'Team Create Error !'.$e->getMessage());
+            return redirect()->back()->withInput();
+        }
+
+
 
     }
 

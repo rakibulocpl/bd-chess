@@ -83,17 +83,6 @@
                 @enderror
             </div>
 
-            <!-- Captain Name -->
-            <div class="w-full">
-                <label for="captain_name" class="block text-md font-semibold text-black mb-1">
-                    Captain's Name
-                </label>
-                <input type="text" name="captain_name" id="captain_name" placeholder="Enter Captain's Name"
-                       class="w-full rounded-md border border-gray-300 bg-white text-black py-1 px-3 shadow-sm placeholder-gray-500" />
-                @error('captain_name')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
 
             <!-- Mentor Name -->
             <div class="w-full">
@@ -212,13 +201,22 @@
                             let html = '';
                             if (players.length > 0) {
                                 players.forEach(function (player) {
+                                    const isChecked = oldPlayers.includes(player.id) ? 'checked' : '';
+                                    const isCaptain = '{{ old('captain_id') }}' == player.id ? 'checked' : '';
                                     html += `
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" name="players[]" value="${player.id}" class="form-checkbox h-5 w-5 text-indigo-600" />
-                                    <span class="text-sm text-gray-700">${player.name}</span>
-                                </label>
-                            `;
+                                        <div class="flex items-center gap-4">
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" name="players[]" value="${player.id}" class="form-checkbox h-5 w-5 text-indigo-600" ${isChecked}/>
+                                                <span class="text-sm text-gray-700">${player.name}</span>
+                                            </label>
+                                            <label class="flex items-center space-x-1">
+                                                <input type="radio" name="captain_id" value="${player.id}" class="form-radio text-blue-600 required" ${isCaptain} />
+                                                <span class="text-xs text-gray-600 italic">Captain</span>
+                                            </label>
+                                        </div>
+                                    `;
                                 });
+
                             } else {
                                 html = '<p class="text-sm text-red-500">No players found for this school.</p>';
                             }

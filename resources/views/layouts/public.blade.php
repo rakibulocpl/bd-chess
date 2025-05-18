@@ -29,7 +29,7 @@
             </a>
             <a href="{{ route('teamList') }}"
                class="{{ request()->routeIs('teamList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
-                Team List
+                Registered Team List
             </a>
             <a href="{{ route('notice') }}"
                class="{{ request()->routeIs('notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
@@ -51,6 +51,7 @@
     <div class="md:hidden px-6 md:px-12 lg:px-24 pb-4 hidden" id="mobileMenu">
         <a href="{{ route('home') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Team Registration</a>
         <a href="{{ route('application.applicantRegister') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Individual Registration</a>
+        <a href="{{ route('teamList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Registered Team List</a>
         <a href="{{ route('notice') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Notice</a>
     </div>
 </header>

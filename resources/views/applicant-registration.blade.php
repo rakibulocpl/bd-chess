@@ -46,7 +46,7 @@
             <span class="font-medium"> {{ $value }} </span>
         </div>
         @endsession
-        <form method="POST" action="{{ route('application.applicantStore') }}" id="teamForm">
+        <form method="POST" action="{{ route('application.applicantStore') }}" id="teamForm" enctype="multipart/form-data">
             <p class="text-red-500"> All red star-marked fields must be filled.</p>
             @csrf
 
@@ -56,7 +56,7 @@
                     <label for="fide_id" class="block text-sm font-semibold text-black mb-1">
                         FIDE ID
                     </label>
-                    <input type="text" name="fide_id" id="fide_id" placeholder="FIDE ID"
+                    <input type="text" name="fide_id" id="fide_id" placeholder="FIDE ID" value="{{old('fide_id')}}"
                            class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     @error('fide_id')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -67,7 +67,7 @@
                     <label for="name" class="block text-sm font-semibold text-black mb-1">
                         {{ __('Name') }} <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" name="name" id="fide_id" placeholder="Full Name"
+                    <input type="text" name="name" id="fide_id" placeholder="Full Name" value="{{old('name')}}"
                            class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     @error('name')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -81,9 +81,9 @@
                     <select name="gender" id="gender"
                             class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 required">
                         <option value="">Select Gender</option>
-                        <option  value="1">Male</option>
-                        <option  value="2">Female</option>
-                        <option  value="3">Other</option>
+                        <option  value="1" {{old('gender') == 1?'selected':''}}>Male</option>
+                        <option  value="2" {{old('gender') == 2?'selected':''}}>Female</option>
+                        <option  value="3" {{old('gender') == 3?'selected':''}}>Other</option>
                     </select>
                     @error('gender')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -94,7 +94,7 @@
                     <label class="block font-medium text-gray-700 dark:text-gray-300 mb-1">
                         {{ __('Date of Birth') }} <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" name="dob" id="dob" readonly
+                    <input type="text" name="dob" value="{{old('dob')}}" id="dob" readonly
                            class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3
                            shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     @error('dob')
@@ -107,7 +107,7 @@
                     <label for="birth_reg_no" class="block text-sm font-semibold text-black mb-1">
                         {{ __('Birth Registration Number') }}
                     </label>
-                    <input type="text" name="birth_reg_no" id="birth_reg_no" placeholder="Birth Registration Number"
+                    <input type="text"  value="{{old('birth_reg_no')}}" name="birth_reg_no" id="birth_reg_no" placeholder="Birth Registration Number"
                            class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     @error('birth_reg_no')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -118,7 +118,7 @@
                     <label for="mobile" class="block text-sm font-semibold text-black mb-1">
                         {{ __('Mobile Number') }} <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" name="mobile" id="birth_reg_no" placeholder="Mobile Number"
+                    <input type="text" value="{{old('mobile')}}" name="mobile" id="birth_reg_no" placeholder="Mobile Number"
                            class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     @error('mobile')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -129,7 +129,7 @@
                     <label for="email" class="block text-sm font-semibold text-black mb-1">
                         {{ __('Email') }}
                     </label>
-                    <input type="text" name="email" id="email" placeholder="Email"
+                    <input type="text" value="{{old('email')}}" name="email" id="email" placeholder="Email"
                            class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     @error('email')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -144,6 +144,7 @@
                         name="lichess_user"
                         id="lichess_user"
                         type="text"
+                        value="{{old('lichess_user')}}"
                         placeholder="{{ __('Lichess User Name') }}"
                         class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
@@ -221,7 +222,9 @@
                         placeholder="Present Address"
                         class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         rows="4"
-                    ></textarea>
+                    >
+                        {{old('present_address')}}
+                    </textarea>
                 </div>
 
                 <div >
