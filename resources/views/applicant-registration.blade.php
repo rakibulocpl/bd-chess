@@ -1,4 +1,22 @@
 @extends('layouts.public')
+
+<style>
+
+    .select2-container .select2-selection--single {
+        height: 34px !important;
+        display: flex;
+        align-items: center;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 42px !important;
+    }
+    /* Force select2 container to inherit 100% width */
+    .select2-container {
+        width: 100% !important;
+    }
+
+
+</style>
 @section('content')
     <div class="flex flex-col gap-6 bg-white">
         <x-public-header :title="__('Create an Individual Account')" :description="__('Enter your details below to create your account')" />
