@@ -11,7 +11,7 @@
 
     <div class="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-24 py-2 flex justify-between items-center">
             <!-- Logo -->
-        
+
             <a href="{{ route('home') }}" class="flex items-center space-x-2">
                 <img src="{{ asset('assets/images/chess_logo.svg') }}" alt="Logo" class="h-14 w-auto" onerror="this.style.display='none';">
             </a>
@@ -26,6 +26,10 @@
             <a href="{{ route('application.applicantRegister') }}"
                class="{{ request()->routeIs('application.applicantRegister') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Individual Registration
+            </a>
+            <a href="{{ route('teamList') }}"
+               class="{{ request()->routeIs('teamList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
+                Team List
             </a>
             <a href="{{ route('notice') }}"
                class="{{ request()->routeIs('notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
