@@ -34,7 +34,7 @@
         <p class="text-red-400"> All red star-marked fields must be filled.</p>
         @csrf
 
-        
+
         <div class="w-full p-1 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-4">
 
             <!-- District -->
@@ -102,6 +102,10 @@
                 </label>
                 <input type="text" name="mentor_name" id="mentor_name" placeholder="Enter Mentor's Name"
                        class="w-full rounded-md border border-gray-300 bg-white text-black py-1 px-3 shadow-sm placeholder-gray-500" />
+                <p class="text-sm text-blue-700 font-semibold mb-2 italic">
+                    Please recommend this mentor as a teacher from your school.
+                </p>
+
                 @error('mentor_name')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
