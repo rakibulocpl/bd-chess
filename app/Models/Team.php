@@ -22,4 +22,9 @@ class Team extends Model
     {
         return $this->belongsTo(Thana::class, 'thana_id');
     }
+
+    public function captain()
+    {
+        return $this->belongsTo(Applicant::class, 'captain_id');
+    }
 }

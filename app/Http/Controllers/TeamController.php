@@ -163,19 +163,46 @@ class TeamController extends Controller
     public function teamList(Request $request)
     {
         if ($request->ajax()) {
-            $teams = Team::with(['school', 'district', 'thana'])->get();
+            $teams = Team::with(['school', 'district', 'thana', 'captain'])->get();
 
             foreach ($teams as $team) {
-                $playerIds = json_decode($team->players, true);
-                $team->player_names = Applicant::whereIn('id', $playerIds)->pluck('name')->toArray();
+                // Get player IDs from team_player table
+                $playerIds = \DB::table('team_player')
+                    ->where('team_id', $team->id)
+                    ->orderBy('player_order')
+                    ->pluck('applicant_id')
+                    ->toArray();
+
+                if (!empty($playerIds)) {
+                    $team->player_names = Applicant::whereIn('id', $playerIds)
+                        ->orderByRaw("FIELD(id, " . implode(',', $playerIds) . ")")
+                        ->pluck('name')
+                        ->toArray();
+                } else {
+                    $team->player_names = [];
+                }
+
+                // Get captain name if needed
+                $team->captain_name = $team->captain_id
+                    ? Applicant::where('id', $team->captain_id)->value('name')
+                    : '-';
             }
 
             return DataTables::of($teams)
                 ->addColumn('school_info', function ($team) {
-                    return ($team->school->name ?? '-') . ' (' . ($team->thana->name ?? '-') . ', ' . ($team->district->name ?? '-'). ')';
+                    return ($team->school->name ?? '-') . ' (' . ($team->thana->name ?? '-') . ', ' . ($team->district->name ?? '-') . ')';
                 })
                 ->addColumn('players', function ($team) {
                     return !empty($team->player_names) ? implode(', ', $team->player_names) : '-';
+                })
+                ->addColumn('captain_name', function ($team) {
+                    return $team->captain_name ?? '-';
+                })
+                ->addColumn('mentor_name', function ($team) {
+                    return $team->mentor_name ?? '-';
+                })
+                ->addColumn('team_number', function ($team) {
+                    return $team->team_number ?? '-';
                 })
                 ->rawColumns(['school_info', 'players'])
                 ->make(true);
