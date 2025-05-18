@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-</main>\
+</main>
 
 <!-- ✅ Footer -->
 <footer class="bg-neutral-100 dark:bg-neutral-800 text-center text-sm text-gray-600 dark:text-gray-300 py-4">
