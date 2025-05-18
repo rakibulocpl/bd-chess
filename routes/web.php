@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\TeamController;
 use App\Livewire\Roles\RoleCreate;
 use App\Livewire\Roles\RoleEdit;
@@ -45,8 +47,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('schools/create', SchoolAdd::class)->name('schools.create');
 
 /*application*/
-Route::get('application/applicant/register',ApplicantRegistration::class)->name('application.applicantRegister');
-Route::get('/notice',SchoolNotice::class)->name('application.notice');
+Route::get('application/applicant/register',[ApplicantController::class,'register'])->name('application.applicantRegister');
+Route::post('application/applicant/register',[ApplicantController::class,'store'])->name('application.applicantStore');
+Route::get('/notice', [NoticeController::class, 'index'])->name('notice');
 
 Route::get('/get-thanas/{districtId}', [TeamController::class, 'getThanas'])->name('get-thanas');
 Route::get('/get-schools/{thanaId}', [TeamController::class, 'getSchools'])->name('get-schools');

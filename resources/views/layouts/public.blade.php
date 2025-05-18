@@ -27,8 +27,8 @@
                class="{{ request()->routeIs('application.applicantRegister') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Individual Registration
             </a>
-            <a href="{{ route('application.notice') }}"
-               class="{{ request()->routeIs('application.notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
+            <a href="{{ route('notice') }}"
+               class="{{ request()->routeIs('notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Notice
             </a>
         </nav>
@@ -47,7 +47,7 @@
     <div class="md:hidden px-4 pb-4 hidden" id="mobileMenu">
         <a href="{{ route('home') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Team Registration</a>
         <a href="{{ route('application.applicantRegister') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Individual Registration</a>
-        <a href="{{ route('application.notice') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Notice</a>
+        <a href="{{ route('notice') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Notice</a>
     </div>
 </header>
 
@@ -61,7 +61,7 @@
             @yield('content')
         </div>
     </div>
-</main>
+</main>\
 
 <!-- ✅ Footer -->
 <footer class="bg-neutral-100 dark:bg-neutral-800 text-center text-sm text-gray-600 dark:text-gray-300 py-4">

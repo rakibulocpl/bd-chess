@@ -17,8 +17,8 @@
            class="{{ request()->routeIs('application.applicantRegister') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
             Individual Registration
         </a>
-        <a href="{{ route('application.notice') }}"
-           class="{{ request()->routeIs('application.notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
+        <a href="{{ route('notice') }}"
+           class="{{ request()->routeIs('notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
            Notice
         </a>
     </div>
