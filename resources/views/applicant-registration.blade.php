@@ -225,9 +225,7 @@
                         placeholder="Present Address"
                         class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm "
                         rows="4"
-                    >
-                        {{old('present_address')}}
-                    </textarea>
+                    >{{old('present_address')}}</textarea>
                 </div>
 
                 <div class="xl:-mt-12">
