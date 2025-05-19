@@ -79,7 +79,7 @@
                         Gender <span class="text-red-600">*</span>
                     </label>
                    <select name="gender" id="gender"
-                        class="w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm"
+                        class="w-full rounded-md required border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm"
                         onchange="this.classList.toggle('text-gray-500', this.value === '')">
                         <option value="">Select Gender</option>
                         <option class="text-black" value="1" {{ old('gender') == 1 ? 'selected' : '' }}>Male</option>
@@ -168,7 +168,7 @@
                         District <span class="text-red-600">*</span>
                     </label>
                     <select name="district" id="district"
-                        class="w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm"
+                        class="w-full select2 rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm"
                         onchange="this.classList.toggle('text-gray-500', this.value === '')">
                         <option value="">Select District</option>
                         @foreach ($districtsList as $item)
@@ -187,7 +187,7 @@
                         Thana/Upazila' <span class="text-red-600">*</span>
                     </label>
                     <select name="thana" id="thana"
-                            class="required w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm ">
+                            class="required w-full select2 rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm ">
                         <option value="">Select Thana/Upazila'</option>
                     </select>
                     @error('thana')
@@ -201,7 +201,7 @@
                         School <span class="text-red-600">*</span>
                     </label>
                     <select name="school_id" id="school"
-                            class="w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm required">
+                            class="w-full select2 rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm required">
                         <option value="">Select School</option>
                     </select>
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -248,7 +248,7 @@
                 </div>
 
 
-               
+
 
             </div>
 
