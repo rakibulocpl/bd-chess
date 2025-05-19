@@ -50,6 +50,7 @@ Route::get('schools/create', SchoolAdd::class)->name('schools.create');
 /*application*/
 Route::get('application/applicant/register',[ApplicantController::class,'register'])->name('application.applicantRegister');
 Route::post('application/applicant/register',[ApplicantController::class,'store'])->name('application.applicantStore');
+Route::get('application/applicant/player-list',[ApplicantController::class,'playerList'])->name('application.playerList');
 Route::get('/notice', [NoticeController::class, 'index'])->name('notice');
 
 Route::get('/get-thanas/{districtId}', [TeamController::class, 'getThanas'])->name('get-thanas');

@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\District;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ApplicantController extends Controller
 {
@@ -74,5 +75,34 @@ class ApplicantController extends Controller
         }
 
 
+    }
+
+
+    public function playerList(Request $request)
+    {   // Applicant is player
+        if ($request->ajax()) {
+            $applicants = Applicant::with(['school', 'thana_rel', 'district_rel'])->get();
+
+            return DataTables::of($applicants)
+                ->addColumn('school_info', function ($applicant) {
+                    $school = $applicant->school->name ?? '-';
+                    $thana_name = $applicant->thana_rel->name ?? '-';
+                    $district_name = $applicant->district_rel->name ?? '-';
+                    return "{$school} ({$thana_name}, {$district_name})";
+                })
+                ->addColumn('birth_info', function ($applicant) {
+                    if ($applicant->dob) {
+                        $dob = \Carbon\Carbon::parse($applicant->dob)->format('d/m/Y');
+                        $diff = \Carbon\Carbon::parse($applicant->dob)->diff(\Carbon\Carbon::now());
+                        $age = $diff->y . ' years ' . $diff->m . ' months ' . $diff->d . ' days';
+                        return "{$dob} ({$age})";
+                    }
+                    return '-';
+                })
+                ->rawColumns(['school_info', 'birth_info'])
+                ->make(true);
+        }
+
+        return view('player-list');
     }
 }
