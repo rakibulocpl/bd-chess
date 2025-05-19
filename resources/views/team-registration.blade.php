@@ -58,11 +58,11 @@
             <!-- Thana -->
             <div class="w-full">
                 <label for="thana" class="block text-md font-semibold text-black mb-1">
-                    Thana/Upazila' <span class="text-red-600">*</span>
+                    Thana/Upazila <span class="text-red-600">*</span>
                 </label>
                 <select name="thana" id="thana"
                         class="required w-full rounded-md select2 border border-gray-300 bg-white text-black py-2 px-3 shadow-sm">
-                    <option value="">Select Thana/Upazila'</option>
+                    <option value="">Select Thana/Upazila</option>
                 </select>
                 @error('thana')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -158,7 +158,7 @@
                         $('#thana').trigger('change');
                     });
                 } else {
-                    $('#thana').html('<option value="">Select Thana</option>');
+                    $('#thana').html('<option value="">Select thana/upazila</option>');
                 }
             });
 

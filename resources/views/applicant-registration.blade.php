@@ -157,7 +157,7 @@
                             {{ __('Create an account') }}
                         </a>
                     </p>
-                    @error('mobile')
+                    @error('lichess_user')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -184,11 +184,11 @@
                 <!-- Thana -->
                 <div class="w-full">
                     <label for="thana" class="block text-md font-semibold text-black mb-1">
-                        Thana/Upazila' <span class="text-red-600">*</span>
+                        Thana/Upazila <span class="text-red-600">*</span>
                     </label>
                     <select name="thana" id="thana"
                             class="required w-full select2 rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm ">
-                        <option value="">Select Thana/Upazila'</option>
+                        <option value="">Select Thana/Upazila</option>
                     </select>
                     @error('thana')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -297,7 +297,7 @@
 
                     if (districtId) {
                         $.get('/get-thanas/' + districtId, function (data) {
-                            let options = '<option value="">Select Thana</option>';
+                            let options = '<option value="">Select thana/upazila</option>';
                             data.forEach(function (item) {
                                 if(oldThana == item.id){
                                     options += `<option value="${item.id}" selected>${item.name}</option>`;
