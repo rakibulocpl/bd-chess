@@ -163,7 +163,7 @@ class TeamController extends Controller
     public function teamList(Request $request)
     {
         if ($request->ajax()) {
-            $teams = Team::with(['school', 'district', 'thana', 'captain'])->get();
+            $teams = Team::with(['school', 'district', 'thana', 'captain'])->orderBy('school_id')->get();
 
             foreach ($teams as $team) {
                 // Get player IDs from team_player table
