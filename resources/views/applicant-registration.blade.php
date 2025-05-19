@@ -230,7 +230,7 @@
                     </textarea>
                 </div>
 
-                <div >
+                <div class="xl:-mt-12">
                     <label for="image" class="block text-md font-semibold text-gray-700 mb-1">
                         {{ __('Profile Photo') }}
                     </label>
@@ -240,7 +240,7 @@
                         type="file"
                         accept="image/*"
                         name="profile_image"
-                        class="block w-full text-gray-700 bg-white border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        class="block w-full text-gray-700 bg-white border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer "
                     >
                     @error('image')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -248,8 +248,12 @@
                 </div>
 
 
-                <div>
-                    <div class="flex items-center space-x-2 mb-2">
+               
+
+            </div>
+
+             <div>
+                    <div class="flex items-center space-x-2 my-2">
                         <input
                             type="checkbox"
                             id="terms"
@@ -267,11 +271,9 @@
 
                 </div>
 
-            </div>
-
 
             <div class="flex items-center justify-center mt-5">
-                <button type="submit" class="w-40 bg-black hover:bg-black text-white font-semibold py-2 px-4 rounded">
+                <button type="submit" class="w-40 bg-black hover:bg-black text-white font-semibold py-2 px-4 rounded cursor-pointer" >
                     {{ __('Create account') }}
                 </button>
             </div>
