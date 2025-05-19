@@ -1,5 +1,5 @@
 @extends('layouts.public')
-
+@section('content')
 <style>
 
     .select2-container .select2-selection--single {
@@ -17,7 +17,6 @@
 
 
 </style>
-@section('content')
     <div class="flex flex-col gap-6 bg-white">
         <x-public-header :title="__('Create an Individual Account')" :description="__('Enter your details below to create your account')" />
         @if ($errors->any())
@@ -394,6 +393,12 @@
     <script>
         $(document).ready(function () {
             $('.select2').select2();
+
+            $(document).on('select2:open', () => {
+                setTimeout(() => {
+                    document.querySelector('.select2-container--open .select2-search__field')?.focus();
+                }, 0);
+            });
         });
         $('#teamForm').validate({
             rules: {
