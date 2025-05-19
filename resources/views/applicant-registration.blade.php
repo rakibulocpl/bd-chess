@@ -51,52 +51,54 @@
             @csrf
 
             {{-- District --}}
-            <div class="w-full p-1 space-y-2 space-x-2">
+            <div class="w-full p-1 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-4">
                 <div class="w-full">
-                    <label for="fide_id" class="block text-sm font-semibold text-black mb-1">
+                    <label for="fide_id" class="block text-md font-semibold text-black mb-1">
                         FIDE ID
                     </label>
                     <input type="text" name="fide_id" id="fide_id" placeholder="FIDE ID" value="{{old('fide_id')}}"
-                           class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                           class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('fide_id')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="w-full">
-                    <label for="name" class="block text-sm font-semibold text-black mb-1">
+                    <label for="name" class="block text-md font-semibold text-black mb-1">
                         {{ __('Name') }} <span class="text-red-600">*</span>
                     </label>
                     <input type="text" name="name" id="fide_id" placeholder="Full Name" value="{{old('name')}}"
-                           class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                           class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('name')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="w-full">
-                    <label for="district" class="block text-sm font-semibold text-black mb-1">
+                    <label for="district" class="block text-md font-semibold text-black mb-1">
                         Gender <span class="text-red-600">*</span>
                     </label>
-                    <select name="gender" id="gender"
-                            class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 required">
+                   <select name="gender" id="gender"
+                        class="w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm"
+                        onchange="this.classList.toggle('text-gray-500', this.value === '')">
                         <option value="">Select Gender</option>
-                        <option  value="1" {{old('gender') == 1?'selected':''}}>Male</option>
-                        <option  value="2" {{old('gender') == 2?'selected':''}}>Female</option>
-                        <option  value="3" {{old('gender') == 3?'selected':''}}>Other</option>
+                        <option class="text-black" value="1" {{ old('gender') == 1 ? 'selected' : '' }}>Male</option>
+                        <option class="text-black" value="2" {{ old('gender') == 2 ? 'selected' : '' }}>Female</option>
+                        <option class="text-black" value="3" {{ old('gender') == 3 ? 'selected' : '' }}>Other</option>
                     </select>
+
                     @error('gender')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="w-full">
-                    <label class="block font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label class="block font-semibold text-md text-gray-700 dark:text-gray-300 mb-1">
                         {{ __('Date of Birth') }} <span class="text-red-600">*</span>
                     </label>
                     <input type="text" name="dob" value="{{old('dob')}}" id="dob" readonly
                            class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3
-                           shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                           shadow-sm placeholder-gray-500 " />
                     @error('dob')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -104,40 +106,40 @@
 
 
                 <div class="w-full">
-                    <label for="birth_reg_no" class="block text-sm font-semibold text-black mb-1">
+                    <label for="birth_reg_no" class="block text-md font-semibold text-black mb-1">
                         {{ __('Birth Registration Number') }}
                     </label>
                     <input type="text"  value="{{old('birth_reg_no')}}" name="birth_reg_no" id="birth_reg_no" placeholder="Birth Registration Number"
-                           class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                           class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('birth_reg_no')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="w-full">
-                    <label for="mobile" class="block text-sm font-semibold text-black mb-1">
+                    <label for="mobile" class="block text-md font-semibold text-black mb-1">
                         {{ __('Mobile Number') }} <span class="text-red-600">*</span>
                     </label>
                     <input type="text" value="{{old('mobile')}}" name="mobile" id="birth_reg_no" placeholder="Mobile Number"
-                           class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                           class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('mobile')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="w-full">
-                    <label for="email" class="block text-sm font-semibold text-black mb-1">
+                    <label for="email" class="block text-md font-semibold text-black mb-1">
                         {{ __('Email') }}
                     </label>
                     <input type="text" value="{{old('email')}}" name="email" id="email" placeholder="Email"
-                           class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                           class="w-full rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('email')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="lichess_user" class="block text-black font-semibold mb-1">
+                    <label for="lichess_user" class="block text-black font-semibold text-md mb-1">
                         {{ __('Lichess User') }}
                     </label>
                     <input
@@ -146,13 +148,13 @@
                         type="text"
                         value="{{old('lichess_user')}}"
                         placeholder="{{ __('Lichess User Name') }}"
-                        class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm "
                     />
 
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        {{ __('Do you have a lichess.org account?') }}
-                        <a href="https://lichess.org" target="_blank" class="text-blue-600 underline hover:text-blue-800">
-                            {{ __('If not, create an account here') }}
+                        {{-- {{ __('Do you have a lichess.org account?') }} --}}
+                        <a href="https://lichess.org" target="_blank" class="text-blue-600 underline hover:text-blue-800" style="text-decoration: none">
+                            {{ __('Create an account') }}
                         </a>
                     </p>
                     @error('mobile')
@@ -162,17 +164,18 @@
 
                 <!-- District -->
                 <div class="w-full">
-                    <label for="district" class="block text-sm font-semibold text-black mb-1">
+                    <label for="district" class="block text-md font-semibold text-black mb-1">
                         District <span class="text-red-600">*</span>
                     </label>
                     <select name="district" id="district"
-                            class="w-full select2 rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 required">
+                        class="w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm"
+                        onchange="this.classList.toggle('text-gray-500', this.value === '')">
                         <option value="">Select District</option>
                         @foreach ($districtsList as $item)
-
-                            <option {{ old('district') == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option class="text-black" {{ old('district') == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
+
                     @error('district')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -180,11 +183,11 @@
 
                 <!-- Thana -->
                 <div class="w-full">
-                    <label for="thana" class="block text-sm font-semibold text-black mb-1">
+                    <label for="thana" class="block text-md font-semibold text-black mb-1">
                         Thana/Upazila' <span class="text-red-600">*</span>
                     </label>
                     <select name="thana" id="thana"
-                            class="required w-full rounded-md select2 border border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            class="required w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm ">
                         <option value="">Select Thana/Upazila'</option>
                     </select>
                     @error('thana')
@@ -194,11 +197,11 @@
 
                 <!-- School -->
                 <div class="w-full">
-                    <label for="school" class="block text-sm font-semibold text-black mb-1">
+                    <label for="school" class="block text-md font-semibold text-black mb-1">
                         School <span class="text-red-600">*</span>
                     </label>
                     <select name="school_id" id="school"
-                            class="w-full required rounded-md border select2 border-gray-300 bg-white text-black py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            class="w-full rounded-md border border-gray-300 bg-white text-gray-500 py-2 px-3 shadow-sm required">
                         <option value="">Select School</option>
                     </select>
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -213,14 +216,14 @@
                 </div>
 
                 <div>
-                    <label for="present_address" class="block text-black font-semibold mb-1">
+                    <label for="present_address" class="block text-black text-md font-semibold mb-1">
                         Present Address
                     </label>
                     <textarea
                         id="present_address"
                         name="present_address"
                         placeholder="Present Address"
-                        class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm "
                         rows="4"
                     >
                         {{old('present_address')}}
@@ -228,7 +231,7 @@
                 </div>
 
                 <div >
-                    <label for="image" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="image" class="block text-md font-semibold text-gray-700 mb-1">
                         {{ __('Profile Photo') }}
                     </label>
 
@@ -267,7 +270,7 @@
             </div>
 
 
-            <div class="flex items-center justify-start mt-5">
+            <div class="flex items-center justify-center mt-5">
                 <button type="submit" class="w-40 bg-black hover:bg-black text-white font-semibold py-2 px-4 rounded">
                     {{ __('Create account') }}
                 </button>

@@ -33,7 +33,7 @@
         <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
             <span class="sr-only">{{ config('app.name', 'Bangladesh Chess Federation') }}</span>
         </a>
-        <h1 class="text-center font-bold text-2xl md:text-3xl  mb-5 ">National High School Team Championship 2025</h1>
+        <h1 class="text-center font-bold text-2xl md:text-3xl  mb-5 ">National High School Chess Team Championship 2025</h1>
         <div class="flex flex-col gap-6">
             {{ $slot }}
         </div>

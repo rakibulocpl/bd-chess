@@ -122,7 +122,7 @@
 
 
        <div class="flex items-center justify-center">
-         <button type="submit"
+         <button type="submit" style="cursor: pointer"
                 class="w-32 mt-5 bg-black hover:bg-black text-white  py-2 px-4 rounded-lg shadow-md transition duration-300">
             Submit
         </button>
