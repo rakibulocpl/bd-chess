@@ -85,8 +85,21 @@
 </main>
 
 <!-- ✅ Footer -->
-<footer class="bg-neutral-100 dark:bg-neutral-800 text-center text-sm text-gray-600 dark:text-gray-300 py-4">
-    <p>&copy; {{ date('Y') }} Bangladesh Chess Federation. All rights reserved.</p>
+<footer class="py-4 border-t-4 border-indigo-500 shadow-inner">
+    <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center md:justify-between px-4">
+
+        <div class="flex items-center gap-4 mb-2 md:mb-0">
+            <img src="{{ asset('assets/images/footer-left.png') }}" alt="ICT & BCC" class="h-10 w-auto">
+        </div>
+
+        <div class="order-3 md:order-none w-full md:w-auto text-center text-sm text-gray-600 dark:text-gray-300 flex-1 mt-2 md:mt-0">
+            <p>&copy; {{ date('Y') }} Bangladesh Chess Federation. All rights reserved.</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-1">
+            <img src="{{ asset('assets/images/footer-right.png') }}" alt="Partners" class="h-10 w-auto">
+        </div>
+    </div>
 </footer>
 
 <!-- ✅ Scripts -->
