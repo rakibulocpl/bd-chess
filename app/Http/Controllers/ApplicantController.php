@@ -95,7 +95,9 @@ class ApplicantController extends Controller
                 ->addColumn('birth_info', function ($applicant) {
                     if ($applicant->dob) {
                         $dob = \Carbon\Carbon::parse($applicant->dob)->format('d/m/Y');
-                        $diff = \Carbon\Carbon::parse($applicant->dob)->diff(\Carbon\Carbon::now());
+                        // Compare with 01/01/2025 instead of now
+                        $compareDate = \Carbon\Carbon::createFromFormat('d/m/Y', '01/01/2025');
+                        $diff = \Carbon\Carbon::parse($applicant->dob)->diff($compareDate);
                         $age = $diff->y . ' years ' . $diff->m . ' months ' . $diff->d . ' days';
                         return "{$dob} ({$age})";
                     }
