@@ -26,7 +26,7 @@ class ApplicantController extends Controller
             'gender' => 'required|in:1,2,3',
             'dob' => 'required|date',
             'birth_reg_no' => 'nullable|string|max:255',
-            'mobile' => ['required', 'regex:/^01[3-9][0-9]{8}$/'],
+            'mobile' => ['required', 'regex:/^01[3-9][0-9]{8}$/','unique:applicants,mobile'],
             'email' => 'nullable|email|unique:applicants,email',
             'district' => 'required|numeric',
             'thana' => 'required|numeric',
@@ -34,6 +34,9 @@ class ApplicantController extends Controller
             'present_address' => 'nullable|string|max:255',
             'profile_image' => 'nullable|image|max:2048', // Image validation
             'terms' => 'required',
+        ],[
+            'mobile'=>'This mobile number is already registered',
+            'email'=>'This Email is already registered'
         ]);
 
 
