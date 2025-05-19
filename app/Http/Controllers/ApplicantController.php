@@ -84,7 +84,9 @@ class ApplicantController extends Controller
     public function playerList(Request $request)
     {   // Applicant is player
         if ($request->ajax()) {
-            $applicants = Applicant::with(['school', 'thana_rel', 'district_rel'])->get();
+            $applicants = Applicant::with(['school', 'thana_rel', 'district_rel'])
+                ->orderBy('school_id')
+                ->get();
 
             return DataTables::of($applicants)
                 ->addColumn('school_info', function ($applicant) {
