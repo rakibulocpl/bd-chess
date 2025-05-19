@@ -61,8 +61,20 @@
     <div class="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-24 py-10 flex flex-col gap-6">
         <div class="w-full flex flex-col gap-2">
 
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-6 rounded-md shadow-md text-center space-y-4">
+            <h2 class="text-2xl md:text-3xl font-extrabold">
+                জাতীয় হাই স্কুল প্রোগ্রামিং প্রতিযোগিতা ২০২৫
+            </h2>
+
+                <a href="/assets/notice.pdf"
+                   download
+                   class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
+                    📄 বিজ্ঞপ্তি PDF ডাউনলোড করুন
+                </a>
+        </div>
+
             <h1 class="text-center font-bold text-2xl md:text-3xl mb-5">
-                National High School Team Championship 2025
+                National High School Team Chess Championship 2025
             </h1>
             <div class="flex flex-col gap-6">
                 @yield('content')
