@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class SchoolAdd extends Component
 {
-    public  $district,$thana,$name,$einn;
+    public  $district,$thana,$name,$eiin;
 
     public $thanasList = [];
     public $districtsList = [];
@@ -47,14 +47,15 @@ class SchoolAdd extends Component
         $this->validate([
             'name'=>'required',
             'district'=>'required',
-            'thana'=>'required'
+            'thana'=>'required',
+            'eiin'=>'nullable|string|unique:schools,eiin',
         ]);
 
         School::create([
             'name'=>$this->name,
             'district_id'=>$this->district,
             'thana_id'=>$this->thana,
-            'einn'=>$this->einn
+            'eiin'=>$this->eiin
         ]);
 
         return to_route('home')->with('success','School Created');

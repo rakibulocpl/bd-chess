@@ -21,6 +21,7 @@ use Livewire\Volt\Volt;
 
 Route::get('/', [TeamController::class, 'showForm'])->name('home');
 Route::get('/team-list', [TeamController::class, 'teamList'])->name('teamList');
+Route::get('/campaign-details', [NoticeController::class, 'campaignDetails'])->name('campaignDetails');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
