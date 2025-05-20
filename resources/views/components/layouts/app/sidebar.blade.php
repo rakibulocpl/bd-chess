@@ -16,7 +16,6 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 {{--                    @can('user.view')--}}
                     <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="route('schools.index')" :current="request()->routeIs('schools.index')" wire:navigate>{{ __('Schools') }}</flux:navlist.item>
 {{--                    @endcan--}}
 {{--                   @can('role.create')--}}
                     <flux:navlist.item icon="link-slash" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>{{ __('Roles') }}</flux:navlist.item>

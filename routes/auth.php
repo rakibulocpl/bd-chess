@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::middleware('guest')->group(function () {
-    Volt::route('login', 'auth.login')
-        ->name('login');
+    Route::get('/login', [LoginController::class,'showLoginForm'])->name('login')->middleware('guest');
+    Route::post('/login',[LoginController::class,'login'])->name('login');
 
     Volt::route('register', 'auth.register')
         ->name('register');
