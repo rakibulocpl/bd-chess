@@ -139,7 +139,7 @@
 
                 <div>
                     <label for="lichess_user" class="block text-black font-semibold text-md mb-1">
-                        {{ __('Lichess User') }}
+                        {{ __('Lichess User') }} <span class="text-red-600">*</span>
                     </label>
                     <input
                         name="lichess_user"
