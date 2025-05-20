@@ -10,4 +10,9 @@ class NoticeController extends Controller
     {
         return view('notice');
     }
+
+    public function campaignDetails()
+    {
+        return view('campaign-details');
+    }
 }

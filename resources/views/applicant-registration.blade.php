@@ -66,7 +66,7 @@
                     <label for="name" class="block text-md font-semibold text-black mb-1">
                         {{ __('Name') }} <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" name="name" id="fide_id" placeholder="Full Name" value="{{old('name')}}"
+                    <input type="text" name="name" id="name" placeholder="Full Name" value="{{old('name')}}"
                            class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('name')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -119,7 +119,7 @@
                     <label for="mobile" class="block text-md font-semibold text-black mb-1">
                         {{ __('Mobile Number') }} <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" value="{{old('mobile')}}" name="mobile" id="birth_reg_no" placeholder="Mobile Number"
+                    <input type="text" value="{{old('mobile')}}" name="mobile" id="mobile" placeholder="Mobile Number"
                            class="w-full required rounded-md border border-gray-300 bg-white text-black py-2 px-3 shadow-sm placeholder-gray-500 " />
                     @error('mobile')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -147,7 +147,7 @@
                         type="text"
                         value="{{old('lichess_user')}}"
                         placeholder="{{ __('Lichess User Name') }}"
-                        class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm "
+                        class="w-full required px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm "
                     />
 
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -401,6 +401,8 @@
         $('#teamForm').validate({
             rules: {
                 district: { required: true },
+                fide_id: { digits:true },
+                birth_reg_no: { digits:true },
                 thana: { required: true },
                 school_id: { required: true },
                 'players[]': {
@@ -420,7 +422,11 @@
                 }
             },
             errorPlacement: function (error, element) {
-
+                if (element.hasClass('select2-hidden-accessible')) {
+                    error.insertAfter(element.next('.select2')); // place after Select2 container
+                } else {
+                    error.insertAfter(element);
+                }
             },
             highlight: function (element) {
                 if ($(element).hasClass('select2-hidden-accessible')) {

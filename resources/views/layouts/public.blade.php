@@ -73,6 +73,15 @@
                     📄 বিজ্ঞপ্তি PDF ডাউনলোড করুন
                 </a>
         </div>
+            @if (!Request::is('campaign-details'))
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-900 p-4 rounded-md shadow-md text-center">
+                🏫 নির্বাচিত স্কুলে খুব শীঘ্রই প্রোগ্রামিং ক্যাম্পেইন অনুষ্ঠিত হবে।
+                <a href="/campaign-details" class="text-blue-700 font-semibold underline hover:text-blue-900">বিস্তারিত দেখুন</a> —
+                ক্যাম্পেইনের তারিখ ও সময়সূচী শীঘ্রই জানানো হবে।
+            </div>
+            @endif
+
+
 
             <h1 class="text-center font-bold text-2xl md:text-3xl mb-5">
                 National High School Team Chess Championship 2025
