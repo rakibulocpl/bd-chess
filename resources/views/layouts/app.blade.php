@@ -20,7 +20,7 @@
     <nav id="sidebar" class="fixed top-0 left-0 h-full flex flex-col bg-white border-r shadow-sm transition-all transform -translate-x-full md:translate-x-0 md:static w-64 z-40">
 
       <div class="p-4 pb-2 flex justify-between items-center">
-        <img id="logo" src="https://img.logoipsum.com/243.svg" class="transition-all duration-300 w-32" alt="Logo" />
+        <img id="logo" src="{{ asset('assets/images/chess_logo.svg') }}" class="transition-all duration-300 w-4" alt="Logo" />
         <!-- Desktop Toggle Button -->
         <button id="desktopToggleBtn" class="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 hidden md:block">
           <i id="desktopToggleIcon" data-lucide="chevron-first"></i>
