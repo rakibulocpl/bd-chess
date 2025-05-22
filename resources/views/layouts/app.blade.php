@@ -127,125 +127,124 @@
 
   <script>
     const sidebar = document.getElementById("sidebar");
-const desktopToggleBtn = document.getElementById("desktopToggleBtn");
-const desktopToggleIcon = document.getElementById("desktopToggleIcon");
-const logo = document.getElementById("logo");
-const userInfo = document.getElementById("userInfo");
-const labels = document.querySelectorAll(".label");
-const usersToggle = document.getElementById("usersToggle");
-const usersSubmenu = document.querySelector("#usersSubmenu.submenu");
-const usersArrow = document.getElementById("usersArrow");
-const mobileToggleBtn = document.getElementById("mobileToggleBtn");
-const mobileToggleIcon = document.getElementById("mobileToggleIcon");
+    const desktopToggleBtn = document.getElementById("desktopToggleBtn");
+    const desktopToggleIcon = document.getElementById("desktopToggleIcon");
+    const logo = document.getElementById("logo");
+    const userInfo = document.getElementById("userInfo");
+    const labels = document.querySelectorAll(".label");
+    const usersToggle = document.getElementById("usersToggle");
+    const usersSubmenu = document.querySelector("#usersSubmenu.submenu");
+    const usersArrow = document.getElementById("usersArrow");
+    const mobileToggleBtn = document.getElementById("mobileToggleBtn");
+    const mobileToggleIcon = document.getElementById("mobileToggleIcon");
 
-let expanded = true;
+    let expanded = true;
 
-function updateIcon(iconElement) {
-  iconElement.classList.toggle("fa-bars", !expanded);
-  iconElement.classList.toggle("fa-x", expanded);
-}
+    function updateIcon(iconElement) {
+      iconElement.classList.toggle("fa-bars", !expanded);
+      iconElement.classList.toggle("fa-x", expanded);
+    }
 
-function toggleSidebar() {
-  expanded = !expanded;
+    function toggleSidebar() {
+      expanded = !expanded;
 
-  if (expanded) {
-    sidebar.classList.remove("collapsed");
-    sidebar.classList.add("w-64");
-    sidebar.classList.remove("w-24");
+      if (expanded) {
+        sidebar.classList.remove("collapsed");
+        sidebar.classList.add("w-64");
+        sidebar.classList.remove("w-24");
 
-    logo.classList.replace("w-4", "w-12");
-    userInfo.classList.replace("w-0", "w-52");
-    userInfo.classList.replace("ml-0", "ml-3");
+        logo.classList.replace("w-4", "w-12");
+        userInfo.classList.replace("w-0", "w-52");
+        userInfo.classList.replace("ml-0", "ml-3");
 
-    labels.forEach(label => {
-      label.classList.replace("w-0", "w-52");
-      label.classList.replace("ml-0", "ml-3");
+        labels.forEach(label => {
+          label.classList.replace("w-0", "w-52");
+          label.classList.replace("ml-0", "ml-3");
+        });
+
+      } else {
+        sidebar.classList.add("collapsed");
+        sidebar.classList.add("w-24");
+        sidebar.classList.remove("w-64");
+
+        logo.classList.replace("w-12", "w-4");
+        userInfo.classList.replace("w-52", "w-0");
+        userInfo.classList.replace("ml-3", "ml-0");
+
+        labels.forEach(label => {
+          label.classList.replace("w-52", "w-0");
+          label.classList.replace("ml-3", "ml-0");
+        });
+
+        usersSubmenu.classList.add("hidden");
+        usersArrow.classList.remove("rotate-180");
+      }
+
+      updateIcon(desktopToggleIcon);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      if (window.innerWidth < 768) {
+        expanded = false;
+        sidebar.classList.add("w-48", "-translate-x-full");
+      } else {
+        expanded = true;
+        sidebar.classList.remove("collapsed", "w-24", "-translate-x-full");
+        sidebar.classList.add("w-64");
+      }
+
+      updateIcon(desktopToggleIcon);
+      updateIcon(mobileToggleIcon);
     });
 
-  } else {
-    sidebar.classList.add("collapsed");
-    sidebar.classList.add("w-24");
-    sidebar.classList.remove("w-64");
+    // Desktop sidebar toggle
+    desktopToggleBtn.addEventListener("click", toggleSidebar);
 
-    logo.classList.replace("w-12", "w-4");
-    userInfo.classList.replace("w-52", "w-0");
-    userInfo.classList.replace("ml-3", "ml-0");
+    // Users submenu toggle
+    usersToggle.addEventListener("click", (e) => {
+      e.preventDefault();
 
-    labels.forEach(label => {
-      label.classList.replace("w-52", "w-0");
-      label.classList.replace("ml-3", "ml-0");
+      if (window.innerWidth < 768 || (window.innerWidth >= 768 && expanded)) {
+        usersSubmenu.classList.toggle("hidden");
+        usersArrow.classList.toggle("rotate-180");
+      }
     });
 
-    usersSubmenu.classList.add("hidden");
-    usersArrow.classList.remove("rotate-180");
-  }
+    // Mobile sidebar toggle
+    mobileToggleBtn.addEventListener("click", () => {
+      const isOpening = sidebar.classList.contains("-translate-x-full");
 
-  updateIcon(desktopToggleIcon);
-}
+      sidebar.classList.toggle("-translate-x-full");
 
-window.addEventListener("DOMContentLoaded", () => {
-  if (window.innerWidth < 768) {
-    expanded = false;
-    sidebar.classList.add("w-48", "-translate-x-full");
-  } else {
-    expanded = true;
-    sidebar.classList.remove("collapsed", "w-24", "-translate-x-full");
-    sidebar.classList.add("w-64");
-  }
+      if (isOpening) {
+        // Sidebar is opening
+        mobileToggleBtn.classList.remove("left-4");
+        mobileToggleBtn.classList.add("right-40");
+        mobileToggleIcon.classList.remove("fa-bars");
+        mobileToggleIcon.classList.add("fa-x");
 
-  updateIcon(desktopToggleIcon);
-  updateIcon(mobileToggleIcon);
-});
 
-// Desktop sidebar toggle
-desktopToggleBtn.addEventListener("click", toggleSidebar);
+        mobileToggleIcon.style.marginLeft = "auto";
+        mobileToggleIcon.style.marginRight = "1rem";
 
-// Users submenu toggle
-usersToggle.addEventListener("click", (e) => {
-  e.preventDefault();
+      
+      } else {
+        // Sidebar is closing
+        mobileToggleBtn.classList.remove("right-40", "hidden");
+        mobileToggleBtn.classList.add("left-4");
+        mobileToggleIcon.classList.remove("fa-x");
+        mobileToggleIcon.classList.add("fa-bars");
 
-  if (window.innerWidth < 768 || (window.innerWidth >= 768 && expanded)) {
-    usersSubmenu.classList.toggle("hidden");
-    usersArrow.classList.toggle("rotate-180");
-  }
-});
+        mobileToggleIcon.style.marginLeft = "";
+        mobileToggleIcon.style.marginRight = "";
+      }
 
-// Mobile sidebar toggle
-mobileToggleBtn.addEventListener("click", () => {
-  const isOpening = sidebar.classList.contains("-translate-x-full");
 
-  sidebar.classList.toggle("-translate-x-full");
-
-  if (isOpening) {
-    // Sidebar is opening
-    mobileToggleBtn.classList.remove("left-4");
-    mobileToggleBtn.classList.add("right-40");
-    mobileToggleIcon.classList.remove("fa-bars");
-    mobileToggleIcon.classList.add("fa-x");
-
-    // X icon কে ডানে সরানোর জন্য মার্জিন দিন
-    mobileToggleIcon.style.marginLeft = "auto";
-    mobileToggleIcon.style.marginRight = "1rem";
-
-    // এখানে কোন setTimeout নেই, তাই আইকন গায়েব হবে না
-  } else {
-    // Sidebar is closing
-    mobileToggleBtn.classList.remove("right-40", "hidden");
-    mobileToggleBtn.classList.add("left-4");
-    mobileToggleIcon.classList.remove("fa-x");
-    mobileToggleIcon.classList.add("fa-bars");
-
-    // মার্জিন রিসেট করো
-    mobileToggleIcon.style.marginLeft = "";
-    mobileToggleIcon.style.marginRight = "";
-  }
-
-  // Sidebar বন্ধ হলে submenu বন্ধ রাখবে
-  if (sidebar.classList.contains("-translate-x-full")) {
-    usersSubmenu.classList.add("hidden");
-    usersArrow.classList.remove("rotate-180");
-  }
-});
+      if (sidebar.classList.contains("-translate-x-full")) {
+        usersSubmenu.classList.add("hidden");
+        usersArrow.classList.remove("rotate-180");
+      }
+    });
 
 
   </script>
