@@ -15,7 +15,7 @@ use App\Livewire\Users\UserShow;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', [TeamController::class, 'showForm'])->name('home');
+Route::get('/team-registration', [TeamController::class, 'showForm'])->name('home');
 Route::get('/team-list', [TeamController::class, 'teamList'])->name('teamList');
 Route::get('/campaign-details', [NoticeController::class, 'campaignDetails'])->name('campaignDetails');
 
@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('schools/create', SchoolAdd::class)->name('schools.create');
 
 /*application*/
-Route::get('application/applicant/register',[ApplicantController::class,'register'])->name('application.applicantRegister');
+Route::get('/',[ApplicantController::class,'register'])->name('application.applicantRegister');
 Route::post('application/applicant/register',[ApplicantController::class,'store'])->name('application.applicantStore');
 Route::get('application/applicant/player-list',[ApplicantController::class,'playerList'])->name('application.playerList');
 Route::get('/notice', [NoticeController::class, 'index'])->name('notice');

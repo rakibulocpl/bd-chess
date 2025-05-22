@@ -21,13 +21,14 @@
 
         <!-- Nav Links -->
         <nav class="space-x-4 hidden md:flex">
-            <a href="{{ route('home') }}"
-               class="{{ request()->routeIs('home') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
-                Team Registration
-            </a>
+
             <a href="{{ route('application.applicantRegister') }}"
                class="{{ request()->routeIs('application.applicantRegister') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Individual Registration
+            </a>
+            <a href="{{ route('home') }}"
+               class="{{ request()->routeIs('home') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
+                Team Registration
             </a>
             <!-- <a href="{{ route('teamList') }}"
                class="{{ request()->routeIs('teamList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
