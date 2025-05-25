@@ -83,10 +83,20 @@ class ApplicantController extends Controller
 
     public function playerList(Request $request)
     {   // Applicant is player
+        $showMobile = $request->boolean('show_mobile');
+
         if ($request->ajax()) {
+
             $applicants = Applicant::with(['school', 'thana_rel', 'district_rel'])
-                ->orderBy('school_id')
+                ->leftJoin('venue_district as vd', 'applicants.district', '=', 'vd.district_id')
+                ->leftJoin('venues', 'vd.venue_id', '=', 'venues.id')
+                ->select(
+                    'applicants.*',
+                    'venues.name as venue_name'
+                )
+                ->orderBy('applicants.school_id')
                 ->get();
+
 
             return DataTables::of($applicants)
                 ->addColumn('school_info', function ($applicant) {
@@ -110,6 +120,6 @@ class ApplicantController extends Controller
                 ->make(true);
         }
 
-        return view('player-list');
+        return view('player-list',compact('showMobile'));
     }
 }

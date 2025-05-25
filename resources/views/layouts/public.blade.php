@@ -30,10 +30,14 @@
                class="{{ request()->routeIs('home') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Team Registration
             </a>
-            <!-- <a href="{{ route('teamList') }}"
+            <a href="{{ route('application.playerList') }}"
+               class="{{ request()->routeIs('application.playerList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
+                Registered Player List
+            </a>
+            <a href="{{ route('teamList') }}"
                class="{{ request()->routeIs('teamList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Registered Team List
-            </a> -->
+            </a>
             <a href="{{ route('notice') }}"
                class="{{ request()->routeIs('notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Notice
@@ -56,7 +60,8 @@
             Registration</a>
         <a href="{{ route('application.applicantRegister') }}"
            class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Individual Registration</a>
-        <!-- <a href="{{ route('teamList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Registered Team List</a> -->
+        <a href="{{ route('application.playerList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Registered Player List</a>
+         <a href="{{ route('teamList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Registered Team List</a>
         <a href="{{ route('notice') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Notice</a>
     </div>
 </header>
@@ -84,12 +89,11 @@
                 @unless (Request::is('campaign-details', 'login'))
                     <div
                         class="bg-blue-100 border-l-4 border-blue-500 text-blue-900 p-4 rounded-md shadow-md text-center">
-                        🏫 নির্বাচিত স্কুলে খুব শীঘ্রই প্রোগ্রামিং ক্যাম্পেইন অনুষ্ঠিত হবে।
+                        আঞ্চলিক প্রতিযোগিতার তারিখ ও ভেন্যু  &nbsp;
                         <a href="{{ url('/campaign-details') }}"
                            class="text-blue-700 font-semibold underline hover:text-blue-900">
-                            বিস্তারিত দেখুন
+                               বিস্তারিত দেখুন
                         </a>
-                        — ক্যাম্পেইনের তারিখ ও সময়সূচী শীঘ্রই জানানো হবে।
                     </div>
                 @endunless
 
@@ -100,7 +104,13 @@
                 <div class="flex flex-col gap-6">
                     @yield('content')
                 </div>
+                    <a href="{{ route('feedback') }}"
+                       class="fixed bottom-5 right-5 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full shadow-lg z-50">
+                        Feedback
+                    </a>
+
             </div>
+
     </div>
 </main>
 

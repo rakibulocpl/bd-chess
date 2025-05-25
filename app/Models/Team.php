@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Team extends Model
 {
@@ -27,4 +28,11 @@ class Team extends Model
     {
         return $this->belongsTo(Applicant::class, 'captain_id');
     }
+
+    public function players():HasMany
+    {
+        return $this->hasMany(TeamPlayer::class, 'team_id', 'id');
+    }
+
+
 }
