@@ -22,6 +22,9 @@ use Livewire\Volt\Volt;
 
 Route::get('/team-registration', [TeamController::class, 'showForm'])->name('home');
 Route::get('/team-list', [TeamController::class, 'teamList'])->name('teamList');
+Route::get('/venue-wise-team-list', [TeamController::class, 'venueWiseTeamList'])->name('venueWiseTeamList');
+Route::get('/venue-wise-player-list', [ApplicantController::class, 'venueWisePlayerList'])->name('venueWisePlayerList');
+Route::get('/venue-wise-player-count', [ApplicantController::class, 'venueWisePlayerSummary'])->name('venueWisePlayerSummary');
 Route::get('/campaign-details', [NoticeController::class, 'campaignDetails'])->name('campaignDetails');
 
 Route::view('dashboard', 'dashboard')
@@ -66,10 +69,13 @@ Route::get('schools/create', SchoolAdd::class)->name('schools.create');
 
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.submit');
+Route::get('/feedback/list', [FeedbackController::class, 'list'])->name('feedback.list');
+Route::get('/feedbacks/{id}', [FeedbackController::class, 'show'])->name('feedback.show');
 
 
 /*application*/
-Route::get('/',[ApplicantController::class,'register'])->name('application.applicantRegister');
+Route::get('/',[ApplicantController::class,'previewResult'])->name('application.applicantRegister');
+Route::get('/applicant/register',[ApplicantController::class,'register'])->name('application.applicantRegister');
 Route::post('application/applicant/register',[ApplicantController::class,'store'])->name('application.applicantStore');
 Route::get('application/applicant/player-list',[ApplicantController::class,'playerList'])->name('application.playerList');
 Route::get('/notice', [NoticeController::class, 'index'])->name('notice');

@@ -28,4 +28,16 @@ class FeedbackController extends Controller
 
 
     }
+
+    public function list()
+    {
+        $feedbacks = Feedback::latest()->paginate(10); // or ->get() for all
+        return view('feedback.list', compact('feedbacks'));
+    }
+
+    public function show($id)
+    {
+        $feedback = Feedback::findOrFail($id);
+        return view('feedback.show', compact('feedback'));
+    }
 }

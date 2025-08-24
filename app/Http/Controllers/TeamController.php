@@ -60,6 +60,21 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
+        $districtId = $request->district;
+
+        $venueDistrict =  DB::table('venue_district')->where('district_id',$districtId)->value('venue_id');
+        $venue = DB::table('venues')->where('id',$venueDistrict)->first();
+
+
+        if (!$venue) {
+            return back()->withErrors(['district' => 'No venue found for the selected district.']);
+        }
+        if(!empty($venue->last_registration_date)){
+            $registrationLastDate = Carbon::parse($venue->last_registration_date);
+            if (Carbon::now()->gt($registrationLastDate)) {
+                return back()->withErrors(['registration_closed' => 'Registration date is over for this region.'])->withInput();
+            }
+        }
 
         $request->validate([
             'district' => 'required|exists:districts,id',
@@ -163,7 +178,14 @@ class TeamController extends Controller
     public function teamList(Request $request)
     {
         if ($request->ajax()) {
-            $teams = Team::with(['school', 'district', 'thana', 'captain'])->orderBy('school_id')->get();
+            $teams = Team::with(['school', 'district', 'thana', 'captain'])
+                ->leftJoin('venue_district as vd', 'teams.district_id', '=', 'vd.district_id')
+                ->leftJoin('venues', 'vd.venue_id', '=', 'venues.id')
+                ->select(
+                    'teams.*',
+                    'venues.name as venue_name'
+                )
+                ->orderBy('school_id')->get();
 
             foreach ($teams as $team) {
                 // Get player IDs from team_player table
@@ -209,6 +231,43 @@ class TeamController extends Controller
         }
 
         return view('team-list');
+    }
+
+    public function venueWiseTeamList(Request $request)
+    {
+        $teams = Team::with(['school', 'district', 'thana', 'captain'])
+            ->leftJoin('venue_district as vd', 'teams.district_id', '=', 'vd.district_id')
+            ->leftJoin('venues', 'vd.venue_id', '=', 'venues.id')
+            ->select('teams.*', 'venues.id as venue_id', 'venues.name as venue_name')
+            ->orderBy('venues.name')
+            ->orderBy('school_id')
+            ->get();
+
+
+// Enhance each team with player and captain info
+        foreach ($teams as $team) {
+            $playerIds = DB::table('team_player')
+                ->where('team_id', $team->id)
+                ->orderBy('player_order')
+                ->pluck('applicant_id')
+                ->toArray();
+
+            $team->player_names = !empty($playerIds)
+                ? Applicant::whereIn('id', $playerIds)
+                    ->orderByRaw("FIELD(id, " . implode(',', $playerIds) . ")")
+                    ->pluck('name')
+                    ->toArray()
+                : [];
+
+            $team->captain_name = $team->captain_id
+                ? Applicant::where('id', $team->captain_id)->value('name')
+                : '-';
+            $team->school_info = ($team->school->name ?? '-') . ' (' . ($team->thana->name ?? '-') . ', ' . ($team->district->name ?? '-') . ')';
+        }
+
+        $groupedTeams = $teams->groupBy('venue_name');
+
+        return view('venue-wise-team-list',compact('groupedTeams'));
     }
 
 

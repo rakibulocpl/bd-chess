@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\District;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class ApplicantController extends Controller
@@ -17,8 +18,33 @@ class ApplicantController extends Controller
 
     }
 
+    public function previewResult()
+    {
+        return view('result-preview');
+    }
+
     public function store(Request $request)
     {
+
+        $districtId = $request->district;
+
+        $venueDistrict =  DB::table('venue_district')->where('district_id',$districtId)->value('venue_id');
+        $venue = DB::table('venues')->where('id',$venueDistrict)->first();
+
+
+        if (!$venue) {
+            return back()->withErrors(['district' => 'No venue found for the selected district.']);
+        }
+        if(!empty($venue->last_registration_date)){
+            $registrationLastDate = Carbon::parse($venue->last_registration_date);
+            if (Carbon::now()->gt($registrationLastDate)) {
+                return back()->withErrors(['registration_closed' => 'Registration date is over for this region.'])->withInput();
+            }
+        }
+
+
+
+
 
         // Validate the form data
         $request->validate([
@@ -122,4 +148,34 @@ class ApplicantController extends Controller
 
         return view('player-list',compact('showMobile'));
     }
+
+    public function venueWisePlayerList()
+    {
+        $players = Applicant::with(['school', 'district_rel', 'thana_rel'])
+            ->leftJoin('venue_district as vd', 'applicants.district', '=', 'vd.district_id')
+            ->leftJoin('venues', 'vd.venue_id', '=', 'venues.id')
+            ->select('applicants.*', 'venues.id as venue_id', 'venues.name as venue_name')
+            ->orderBy('venues.name')
+            ->orderBy('school_id')
+            ->paginate(25); // paginate here
+
+        $groupedPlayer = $players->getCollection()->groupBy('venue_name');
+        $paginatedPlayers = $players->withPath(request()->url()); // retain pagination
+
+        return view('venue-wise-player-list', compact('groupedPlayer', 'paginatedPlayers'));
+    }
+
+    public function venueWisePlayerSummary()
+    {
+        $venueSummary = Applicant::leftJoin('venue_district as vd', 'applicants.district', '=', 'vd.district_id')
+            ->leftJoin('venues', 'vd.venue_id', '=', 'venues.id')
+            ->select('venues.name as venue_name', DB::raw('count(applicants.id) as total_players'))
+            ->groupBy('venues.name')
+            ->orderBy('venues.name')
+            ->get();
+
+        return view('venue-wise-player-count', compact('venueSummary'));
+    }
+
+
 }

@@ -38,6 +38,10 @@
                class="{{ request()->routeIs('teamList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Registered Team List
             </a>
+            <a href="{{ route('venueWiseTeamList') }}"
+               class="{{ request()->routeIs('venueWiseTeamList') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
+                Teams by Venue
+            </a>
             <a href="{{ route('notice') }}"
                class="{{ request()->routeIs('notice') ? 'text-blue-600 font-semibold border-b-2 border-blue-600' : 'text-gray-700 dark:text-white hover:text-blue-500' }}">
                 Notice
@@ -62,6 +66,7 @@
            class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Individual Registration</a>
         <a href="{{ route('application.playerList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Registered Player List</a>
          <a href="{{ route('teamList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Registered Team List</a>
+         <a href="{{ route('venueWiseTeamList') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Teams by Venue</a>
         <a href="{{ route('notice') }}" class="block py-2 text-gray-700 dark:text-white hover:text-blue-500">Notice</a>
     </div>
 </header>
@@ -85,16 +90,6 @@
                         📄 বিজ্ঞপ্তি PDF ডাউনলোড করুন
                     </a>
                 </div>
-                @endunless
-                @unless (Request::is('campaign-details', 'login'))
-                    <div
-                        class="bg-blue-100 border-l-4 border-blue-500 text-blue-900 p-4 rounded-md shadow-md text-center">
-                        আঞ্চলিক প্রতিযোগিতার তারিখ ও ভেন্যু  &nbsp;
-                        <a href="{{ url('/campaign-details') }}"
-                           class="text-blue-700 font-semibold underline hover:text-blue-900">
-                               বিস্তারিত দেখুন
-                        </a>
-                    </div>
                 @endunless
 
 
